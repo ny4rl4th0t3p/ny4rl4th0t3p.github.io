@@ -16,12 +16,12 @@ keep a tamper-evident record of every decision. Self-hostable end to end.
 
 - [Documentation](https://ny4rl4th0t3p.github.io/seedward-suite)
 
-### chaincoord — v1.0.0 release candidate
+### chaincoord — v1.0.0
 
 The coordination server. An M-of-N committee with VETO drives an explicit launch
 lifecycle state machine, backed by a tamper-evident, offline-verifiable
 hash-chained audit log. Validators and coordinators sign in with their existing
-Cosmos wallets (ADR-036); the server never holds private key material. Ships
+Cosmos wallets (ADR-036); the server never holds a validator's signing key. Ships
 with a browser UI, in-browser gentx validation, and an optional pre-flight
 rehearsal. Built to replace the Discord-and-spreadsheet pattern that coordinates
 most Cosmos chain launches today.
@@ -29,7 +29,7 @@ most Cosmos chain launches today.
 - [GitHub](https://github.com/ny4rl4th0t3p/seedward-chaincoord)
 - [Documentation](https://ny4rl4th0t3p.github.io/seedward-chaincoord)
 
-### Web UI — v0.2.x (beta)
+### Web UI — v0.3.x (beta)
 
 A browser front end for chaincoord. Connect a Cosmos wallet to create and govern
 launches, review committee proposals, and submit or validate validator gentxs —
@@ -38,7 +38,7 @@ container image.
 
 - [GitHub](https://github.com/ny4rl4th0t3p/seedward-chaincoord-web)
 
-### Rehearsal — v0.3.x (pre-release)
+### Rehearsal — v0.4.x (pre-release)
 
 Optional pre-flight rehearsal for a launch. Assembles the candidate genesis from
 the approved inputs, boots an ephemeral chain from it, runs an on-chain assertion
