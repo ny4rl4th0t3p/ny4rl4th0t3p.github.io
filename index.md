@@ -13,8 +13,8 @@ validator gentxs, run a multi-party launch under an M-of-N committee, rehearse t
 tamper-evident record of every decision. Self-hostable end to end.
 
 - [Documentation](https://ny4rl4th0t3p.github.io/seedward-suite)
-- [Demo](https://ny4rl4th0t3p.github.io/seedward-suite/demo/) — `make dev-seed` spins up a populated stack: ten
-      launches across every lifecycle state, browsable with an imported demo wallet.
+- [Demo](https://ny4rl4th0t3p.github.io/seedward-suite/demo/) — `make dev-seed` spins up a populated stack: ten launches
+  across every lifecycle state, browsable with an imported demo wallet.
 
 ### chaincoord — v1.0.0
 
@@ -100,4 +100,5 @@ These tools come from operating in the Cosmos ecosystem and noticing the same op
 Discord channels, spreadsheets, and quick-and-dirty scripts at every chain launch and testnet. The point is to turn
 those workflows into self-hostable software.
 
-For questions or bug reports, open an issue on the relevant repo.
+For questions, bug reports, or anything else — including collaboration or work inquiries — open an issue or discussion
+on the relevant repo.
