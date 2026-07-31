@@ -1,8 +1,9 @@
 Operator tooling for Cosmos SDK chains.
 
 I build small, focused tools for the painful workflows in the lifecycle of a Cosmos SDK chain — launching, coordination,
-faucet operation, genesis assembly. All of them are Apache 2.0 and self-hostable. None of them require running a
-third-party service or trusting an external infrastructure operator.
+faucet operation, genesis assembly, and keeping the public registry honest about what's still alive. All of them are
+Apache 2.0 and self-hostable. None of them require running a third-party service or trusting an external infrastructure
+operator.
 
 ---
 
@@ -82,15 +83,21 @@ limits keyed on raw address bytes.
 
 ---
 
-## chain-registry-sentinel
+## chain-registry-sentinel — v0.8.2
 
-A GitHub Action that verifies `cosmos/chain-registry` entries against on-chain reality. Probes every RPC, REST, gRPC,
-EVM, and WebSocket endpoint in a registry clone, tracks consecutive failures across runs in per-chain state files, and
-opens a pull request to remove any endpoint that has failed consistently — with a failure table, first and last seen
-evidences, and curl/grpcurl verification commands for each entry. State persists on a dedicated branch between runs;
-every proposed change goes through a normal PR for maintainer review.
+A GitHub Action that verifies cosmos/chain-registry entries against on-chain reality and proposes corrections as pull
+requests. Probes every declared RPC, REST, gRPC, gRPC-web, EVM JSON-RPC, and WebSocket endpoint; failures are classified
+from live error values (DNS, TLS, syscall — never string matching) and tracked as per-run streaks on a dedicated state
+branch. Consistently dead endpoints get a removal PR with per-endpoint evidence and copy-paste curl/grpcurl verification
+commands. Chains that are dead as a whole — every core endpoint gone while their operators demonstrably serve other
+chains, or every surviving node frozen past a block-age threshold — get a one-line status-flip PR (live → killed)
+instead of dozens of deletions. IBC denom hashes are recomputed from their trace paths and fixed deterministically;
+endpoints answering for the wrong chain are reported. Every finding is machine-gathered, capped per run, and lands as a
+normal PR for maintainer review — the sentinel never closes PRs. Ships as a prebuilt GHCR image; also runs standalone
+via docker run for a read-only measurement of any registry clone.
 
 - [GitHub](https://github.com/ny4rl4th0t3p/chain-registry-sentinel)
+- [Probe specification](https://github.com/ny4rl4th0t3p/chain-registry-sentinel/blob/main/PROBES.md)
 
 ---
 
