@@ -7,6 +7,25 @@ operator.
 
 ---
 
+## chain-registry-sentinel — v0.8.3
+
+A GitHub Action that verifies cosmos/chain-registry entries against on-chain reality and proposes corrections as pull
+requests. Probes every declared RPC, REST, gRPC, gRPC-web, EVM JSON-RPC, and WebSocket endpoint; failures are classified
+from live error values (DNS, TLS, syscall — never string matching) and tracked as per-run streaks on a dedicated state
+branch. Consistently dead endpoints get a removal PR with per-endpoint evidence and copy-paste curl/grpcurl verification
+commands. Chains that are dead as a whole — every core endpoint gone while their operators demonstrably serve other
+chains, or every surviving node frozen past a block-age threshold — get a one-line status-flip PR (live → killed)
+instead of dozens of deletions. IBC denom hashes are recomputed from their trace paths and fixed deterministically;
+endpoints answering for the wrong chain are reported. Every finding is machine-gathered, capped per run, and lands as a
+normal PR for maintainer review — the sentinel never closes PRs. Ships as a prebuilt GHCR image; also runs standalone
+via docker run for a read-only measurement of any registry clone.
+
+- [GitHub](https://github.com/ny4rl4th0t3p/chain-registry-sentinel)
+- [Probe specification](https://github.com/ny4rl4th0t3p/chain-registry-sentinel/blob/main/PROBES.md)
+- [Measurement & discussion with the registry maintainers — cosmos/chain-registry#7866](https://github.com/cosmos/chain-registry/issues/7866)
+
+---
+
 ## Seedward
 
 A suite for launching and coordinating Cosmos SDK chains without the usual Discord-and-spreadsheet scramble: validate
@@ -70,7 +89,7 @@ commands in progress. Early and subject to change.
 
 ---
 
-## pour
+## pour — v0.9.x, pre-1.0
 
 A pure-Go, multi-chain Cosmos faucet. Single static binary, no Node, no cosmos-sdk dependency. Builds and broadcasts
 transactions via raw protobuf over gRPC or REST, sources chain metadata from `cosmos/chain-registry`, handles IBC drips,
@@ -80,24 +99,6 @@ limits keyed on raw address bytes.
 - [GitHub](https://github.com/ny4rl4th0t3p/pour)
 - [Documentation](https://ny4rl4th0t3p.github.io/pour)
 - [Design document](https://github.com/ny4rl4th0t3p/pour/blob/main/docs/DESIGN.md)
-
----
-
-## chain-registry-sentinel — v0.8.2
-
-A GitHub Action that verifies cosmos/chain-registry entries against on-chain reality and proposes corrections as pull
-requests. Probes every declared RPC, REST, gRPC, gRPC-web, EVM JSON-RPC, and WebSocket endpoint; failures are classified
-from live error values (DNS, TLS, syscall — never string matching) and tracked as per-run streaks on a dedicated state
-branch. Consistently dead endpoints get a removal PR with per-endpoint evidence and copy-paste curl/grpcurl verification
-commands. Chains that are dead as a whole — every core endpoint gone while their operators demonstrably serve other
-chains, or every surviving node frozen past a block-age threshold — get a one-line status-flip PR (live → killed)
-instead of dozens of deletions. IBC denom hashes are recomputed from their trace paths and fixed deterministically;
-endpoints answering for the wrong chain are reported. Every finding is machine-gathered, capped per run, and lands as a
-normal PR for maintainer review — the sentinel never closes PRs. Ships as a prebuilt GHCR image; also runs standalone
-via docker run for a read-only measurement of any registry clone.
-
-- [GitHub](https://github.com/ny4rl4th0t3p/chain-registry-sentinel)
-- [Probe specification](https://github.com/ny4rl4th0t3p/chain-registry-sentinel/blob/main/PROBES.md)
 
 ---
 
