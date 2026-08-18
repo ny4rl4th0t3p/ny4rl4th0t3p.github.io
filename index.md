@@ -26,6 +26,23 @@ via docker run for a read-only measurement of any registry clone.
 
 ---
 
+## stateward — v0.1.0
+
+Offline, verified reading of a Cosmos SDK chain's on-disk state — no running node, no chain binary, no state replay. It
+opens a node's `application.db` with hand-rolled, spec-pinned IAVL readers (legacy, v1, and hybrid trees; goleveldb and
+pebbledb), recomputes a store's Merkle root and the application hash from the raw nodes, and checks them against the
+store's own `CommitInfo` and, optionally, a validator-signed block header — a header match is cryptographic proof that
+the snapshot *is* the state the network committed at that height, established locally from the data directory alone.
+Three modes ride one verified walk: `verify` (the trust primitive), `census` (a bank balance / reverse-index /
+value-encoding audit), and `raw` (the anchored `(key, value)` slice that keeps any downstream decoding auditable back to
+the on-chain bytes). The readers are hostile-input parsers — no panics, bounded allocations, continuously fuzzed. Single
+CGO-free binary, and a prebuilt GHCR image.
+
+- [GitHub](https://github.com/ny4rl4th0t3p/stateward)
+- [DenomOwners under-reports holders on cosmoshub-4 — cosmos/gaia#4122](https://github.com/cosmos/gaia/issues/4122)
+
+---
+
 ## Seedward
 
 A suite for launching and coordinating Cosmos SDK chains without the usual Discord-and-spreadsheet scramble: validate
