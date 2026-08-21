@@ -1,9 +1,10 @@
 Operator tooling for Cosmos SDK chains.
 
 I build small, focused tools for the painful workflows in the lifecycle of a Cosmos SDK chain — launching, coordination,
-faucet operation, genesis assembly, and keeping the public registry honest about what's still alive. All of them are
-Apache 2.0 and self-hostable. None of them require running a third-party service or trusting an external infrastructure
-operator.
+faucet operation, genesis assembly, offline state verification, and keeping the public registry honest about what's
+still alive. All of them are Apache 2.0 and self-hostable. None of them require running a third-party service or trusting
+an external infrastructure operator. One of them — `stateward`, the offline state reader — surfaced a bank-state
+indexing gap on the Cosmos Hub ([cosmos/gaia#4122](https://github.com/cosmos/gaia/issues/4122)).
 
 ---
 
@@ -26,7 +27,7 @@ via docker run for a read-only measurement of any registry clone.
 
 ---
 
-## stateward — v0.1.0
+## stateward — v0.2.0
 
 Offline, verified reading of a Cosmos SDK chain's on-disk state — no running node, no chain binary, no state replay. It
 opens a node's `application.db` with hand-rolled, spec-pinned IAVL readers (legacy, v1, and hybrid trees; goleveldb and
