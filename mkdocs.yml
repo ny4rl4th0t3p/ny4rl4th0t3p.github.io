@@ -43,6 +43,8 @@ plugins:
       categories_allowed:
         - Cosmos Hub
         - Injective
+        - chain-registry
+        - chain-registry-sentinel
         - stateward
       pagination_per_page: 10
 
