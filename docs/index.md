@@ -1,10 +1,15 @@
-Operator tooling for Cosmos SDK chains.
+---
+hide:
+  - navigation
+---
+
+# Operator tooling for Cosmos SDK chains
 
 I build small, focused tools for the painful workflows in the lifecycle of a Cosmos SDK chain — launching, coordination,
 faucet operation, genesis assembly, offline state verification, and keeping the public registry honest about what's
-still alive. All of them are Apache 2.0 and self-hostable. None of them require running a third-party service or trusting
-an external infrastructure operator. One of them — `stateward`, the offline state reader — surfaced a bank-state
-indexing gap on the Cosmos Hub ([cosmos/gaia#4122](https://github.com/cosmos/gaia/issues/4122)).
+still alive. All of them are Apache 2.0 and self-hostable. None of them require running a third-party service or
+trusting an external infrastructure operator. One of them — `stateward`, the offline state reader — surfaced a
+bank-state indexing gap on the Cosmos Hub ([cosmos/gaia#4122](https://github.com/cosmos/gaia/issues/4122)).
 
 ---
 
@@ -27,7 +32,7 @@ via docker run for a read-only measurement of any registry clone.
 
 ---
 
-## stateward — v0.2.0
+## stateward — v0.3.0
 
 Offline, verified reading of a Cosmos SDK chain's on-disk state — no running node, no chain binary, no state replay. It
 opens a node's `application.db` with hand-rolled, spec-pinned IAVL readers (legacy, v1, and hybrid trees; goleveldb and
@@ -36,11 +41,13 @@ store's own `CommitInfo` and, optionally, a validator-signed block header — a 
 the snapshot *is* the state the network committed at that height, established locally from the data directory alone.
 Three modes ride one verified walk: `verify` (the trust primitive), `census` (a bank balance / reverse-index /
 value-encoding audit), and `raw` (the anchored `(key, value)` slice that keeps any downstream decoding auditable back to
-the on-chain bytes). The readers are hostile-input parsers — no panics, bounded allocations, continuously fuzzed. Single
-CGO-free binary, and a prebuilt GHCR image.
+the on-chain bytes — optionally with each entry's last-write height, a fact of the committed tree no node API serves).
+The readers are hostile-input parsers — no panics, bounded allocations, continuously fuzzed. Single CGO-free binary, and
+a prebuilt GHCR image.
 
 - [GitHub](https://github.com/ny4rl4th0t3p/stateward)
 - [DenomOwners under-reports holders on cosmoshub-4 — cosmos/gaia#4122](https://github.com/cosmos/gaia/issues/4122)
+- [account_number 0 duplicated on injective-1 — InjectiveFoundation/injective-core#45](https://github.com/InjectiveFoundation/injective-core/issues/45)
 
 ---
 

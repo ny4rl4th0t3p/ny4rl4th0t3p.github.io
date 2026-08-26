@@ -1,0 +1,74 @@
+site_name: ny4rl4th0t3p
+site_description: Operator tooling for Cosmos SDK chains
+site_url: https://ny4rl4th0t3p.github.io/
+# No repo_url: it would add a header card that fetches stars/forks from the GitHub
+# API on every page load — pointless for a personal site, and an external request.
+
+theme:
+  name: material
+  language: en
+  # No Google Fonts fetch — system stack only; the site stays self-contained.
+  font: false
+  # First entry = default (dark); the toggle switches to light.
+  palette:
+    - scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.footer
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+    - toc.follow
+
+plugins:
+  - search
+  - blog:
+      blog_dir: blog
+      blog_toc: true
+      post_url_format: "{slug}"
+      post_date_format: medium
+      post_excerpt: required
+      authors_file: "{blog}/.authors.yml"
+      categories_allowed:
+        - Cosmos Hub
+        - Injective
+        - stateward
+      pagination_per_page: 10
+
+extra:
+  generator: false   # no "Made with Material for MkDocs" footer line
+
+extra_css:
+  - stylesheets/extra.css   # hides the desktop left sidebar site-wide (tabs are the nav)
+
+extra_javascript:
+  - javascripts/external-links.js   # off-site links open in a new tab
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.inlinehilite
+
+nav:
+  - Home: index.md
+  - Blog: blog/index.md

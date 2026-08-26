@@ -1,0 +1,9 @@
+/* No primary (left) sidebar anywhere: the top tabs are the whole navigation.
+   Desktop only — below Material's 76.25em breakpoint the same element is the
+   mobile drawer, which must stay. Also covers the blog plugin's generated
+   archive/category pages, which take no per-page front matter. */
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary {
+    display: none;
+  }
+}
