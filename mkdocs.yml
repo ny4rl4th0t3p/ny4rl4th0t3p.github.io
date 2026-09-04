@@ -46,6 +46,7 @@ plugins:
         - chain-registry
         - chain-registry-sentinel
         - stateward
+        - nodemap
       pagination_per_page: 10
 
 extra:

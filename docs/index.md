@@ -33,12 +33,12 @@ via docker run for a read-only measurement of any registry clone.
 
 ---
 
-## nodemap — v0.2.1
+## nodemap — v0.3.0
 
 A public, aggregate map of the observable nodes in a CometBFT network: where nodes are by country, how
 concentrated hosting is by provider (by node count and by share of the peer connections that land there), which client
-versions run as a network-wide share, whether the mesh holds together, and a directory of self-advertised public RPC
-endpoints. It is safe by construction rather than filtered: the crawler dials only the RPC port a node itself
+and application versions run as network-wide shares, whether the mesh holds together, and a directory of
+self-advertised public RPC endpoints. It is safe by construction rather than filtered: the crawler dials only the RPC port a node itself
 advertises and reduces every response in process before anything is written, and the privacy policy is executable —
 allowlists pin the exact field set and JSON keys of every persisted type, denylists ban identity, peer, and topology
 fields at any depth, individual records are scalars-only by structural rule, and aggregate tables carry no join keys
