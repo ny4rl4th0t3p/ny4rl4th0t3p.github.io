@@ -6,10 +6,11 @@ hide:
 # Operator tooling for Cosmos SDK chains
 
 I build small, focused tools for the painful workflows in the lifecycle of a Cosmos SDK chain — launching, coordination,
-faucet operation, genesis assembly, offline state verification, and keeping the public registry honest about what's
-still alive. All of them are Apache 2.0 and self-hostable. None of them require running a third-party service or
-trusting an external infrastructure operator. One of them — `stateward`, the offline state reader — surfaced a
-bank-state indexing gap on the Cosmos Hub ([cosmos/gaia#4122](https://github.com/cosmos/gaia/issues/4122)).
+faucet operation, genesis assembly, offline state verification, keeping the public registry honest about what's still
+alive, and seeing where a network's nodes actually run. All of them are Apache 2.0 and self-hostable. None of them
+require running a third-party service or trusting an external infrastructure operator. One of them — `stateward`, the
+offline state reader — surfaced a bank-state indexing gap on the Cosmos Hub
+([cosmos/gaia#4122](https://github.com/cosmos/gaia/issues/4122)).
 
 ---
 
@@ -29,6 +30,28 @@ via docker run for a read-only measurement of any registry clone.
 - [GitHub](https://github.com/ny4rl4th0t3p/chain-registry-sentinel)
 - [Probe specification](https://github.com/ny4rl4th0t3p/chain-registry-sentinel/blob/main/PROBES.md)
 - [Measurement & discussion with the registry maintainers — cosmos/chain-registry#7866](https://github.com/cosmos/chain-registry/issues/7866)
+
+---
+
+## nodemap — v0.2.1
+
+A public, aggregate map of the observable nodes in a CometBFT network: where nodes are by country, how
+concentrated hosting is by provider (by node count and by share of the peer connections that land there), which client
+versions run as a network-wide share, whether the mesh holds together, and a directory of self-advertised public RPC
+endpoints. It is safe by construction rather than filtered: the crawler dials only the RPC port a node itself
+advertises and reduces every response in process before anything is written, and the privacy policy is executable —
+allowlists pin the exact field set and JSON keys of every persisted type, denylists ban identity, peer, and topology
+fields at any depth, individual records are scalars-only by structural rule, and aggregate tables carry no join keys
+that would let them be cross-tabulated back toward a node. Any violation fails the build; the registry of persisted
+types is the trust root, and nothing outside it can be written to disk. A node that answers RPC but reports voting
+power is counted and never listed. Sentry-hidden validators never appear at
+all. Operators delist a public endpoint with a signed proof of control of their `node_key`, processed automatically
+into a salted hash; the crawler enforces the list, the instance owns the process. Runs hourly on GitHub Actions and
+publishes to GitHub Pages; the crawler is a single Go binary, the map a static page with no external libraries.
+
+- [Live map — Cosmos Hub](https://ny4rl4th0t3p.github.io/nodemap-ui/)
+- [Crawler — GitHub](https://github.com/ny4rl4th0t3p/nodemap), with the full field policy and its reasoning
+- [Instance — GitHub](https://github.com/ny4rl4th0t3p/nodemap-ui), the running map: chains, workflows, delisting
 
 ---
 
