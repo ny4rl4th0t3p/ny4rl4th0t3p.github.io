@@ -33,7 +33,7 @@ via docker run for a read-only measurement of any registry clone.
 
 ---
 
-## nodemap — v0.3.0
+## nodemap — v0.3.2
 
 A public, aggregate map of the observable nodes in a CometBFT network: where nodes are by country, how
 concentrated hosting is by provider (by node count and by share of the peer connections that land there), which client
@@ -46,10 +46,10 @@ that would let them be cross-tabulated back toward a node. Any violation fails t
 types is the trust root, and nothing outside it can be written to disk. A node that answers RPC but reports voting
 power is counted and never listed. Sentry-hidden validators never appear at
 all. Operators delist a public endpoint with a signed proof of control of their `node_key`, processed automatically
-into a salted hash; the crawler enforces the list, the instance owns the process. Runs hourly on GitHub Actions and
+into a salted hash; the crawler enforces the list, the instance owns the process. Runs every four hours on GitHub Actions and
 publishes to GitHub Pages; the crawler is a single Go binary, the map a static page with no external libraries.
 
-- [Live map — Cosmos Hub](https://ny4rl4th0t3p.github.io/nodemap-ui/)
+- [Live map — Cosmos Hub, Injective, Celestia, dYdX](https://ny4rl4th0t3p.github.io/nodemap-ui/)
 - [Crawler — GitHub](https://github.com/ny4rl4th0t3p/nodemap), with the full field policy and its reasoning
 - [Instance — GitHub](https://github.com/ny4rl4th0t3p/nodemap-ui), the running map: chains, workflows, delisting
 

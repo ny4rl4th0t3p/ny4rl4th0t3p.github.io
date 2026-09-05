@@ -1,6 +1,5 @@
 ---
-draft: true
-date: 2026-09-11
+date: 2026-09-05
 categories:
   - Cosmos Hub
   - nodemap
@@ -12,18 +11,19 @@ hide:
 
 # Half of the Cosmos Hub's peer connections land on three hosting providers
 
-Of the roughly 500 `cosmoshub-4` nodes a public-RPC crawl can observe, about 28% sit in Hetzner's network and about
+Of the roughly 500 `cosmoshub-4` nodes a public-RPC crawl can observe, about 30% sit in Hetzner's network and about
 40% of the peer connections those nodes report terminate there. The top three providers — Hetzner, OVH, and Amazon —
-hold 47% of the nodes and 50% of the connections. Measured hourly since 2026-09-04 from GitHub's network, and before
-that from two other vantage points; the numbers move by a point or two between runs and the ranking does not move at
-all. Live on the [map](https://ny4rl4th0t3p.github.io/nodemap-ui/), hosting concentration card.
+hold 47% of the nodes and half of the connections. Measured fifteen times over thirty hours from GitHub's network,
+2026-09-04 to 2026-09-05, and before that eight times from two other vantage points; the numbers move by a point or
+two between runs and the ranking does not move at all. Live on the
+[map](https://ny4rl4th0t3p.github.io/nodemap-ui/), hosting concentration card.
 
 <!-- more -->
 
 ## Reproduction — one binary, one seeds file, two free databases
 
 ```sh
-go install github.com/ny4rl4th0t3p/nodemap@v0.3.0
+go install github.com/ny4rl4th0t3p/nodemap@v0.3.2
 
 # the instance's seed list (the chain-registry rpc entries for cosmoshub-4) and the DB-IP Lite databases (CC BY 4.0)
 curl -fsSLO https://raw.githubusercontent.com/ny4rl4th0t3p/nodemap-ui/main/instance/seeds/cosmoshub.json
@@ -46,17 +46,19 @@ About a minute and a half at the default 16 workers (a couple of minutes end to 
 
 ## The numbers
 
-Eight runs, 2026-09-02 to 2026-09-04, three vantage points: a small VM, a workstation, GitHub Actions runners.
+Twenty-three runs, 2026-09-02 to 2026-09-05: eight from a small VM and a workstation, then fifteen from GitHub
+Actions runners between 2026-09-04 09:27 UTC and 2026-09-05 15:24 UTC, every snapshot kept on the instance's `data`
+branch.
 
-| Measure                                   | Range across runs        |
-|-------------------------------------------|--------------------------|
-| Observed nodes                            | 471 – 545                |
-| Nodes answering RPC                       | 33 – 35                  |
-| Hetzner, share of nodes                   | 27% – 30%                |
-| Hetzner, share of reported connections    | 39% – 41%                |
-| Top 3 providers, share of nodes           | 45% – 48%                |
-| Top 3 providers, share of connections     | 49% – 52%                |
-| Next provider after the top three         | Allnodes, ~3% of nodes   |
+| Measure                                   | Range across runs        | Runner runs alone        |
+|-------------------------------------------|--------------------------|--------------------------|
+| Observed nodes                            | 471 – 545                | 496 – 545                |
+| Nodes answering RPC                       | 33 – 36                  | 34 – 36                  |
+| Hetzner, share of nodes                   | 27% – 31%                | 28% – 31%                |
+| Hetzner, share of reported connections    | 39% – 41%                | 39% – 41%                |
+| Top 3 providers, share of nodes           | 45% – 48%                | 47% – 48%                |
+| Top 3 providers, share of connections     | 49% – 52%                | 49% – 52%                |
+| Next provider after the top three         | Allnodes, 2% – 3%        | Allnodes, 2% – 3%        |
 
 The connection share is the number that matters for the "what if" question: a provider hosting a quarter of the nodes
 but carrying two fifths of the mesh's connections is where the well-connected nodes are, not merely where many nodes
@@ -86,9 +88,10 @@ write a node id, a peer edge, a validator identity, or a per-node version.
   rewards being well-known to public nodes, which is the point, but it is not a byte count.
 - **Geolocation is approximate.** DB-IP Lite places an IP in a country and an AS; a node behind a load balancer is
   placed where the balancer is unless it advertises its own listen address.
-- **Vantage matters for connectivity, not for concentration.** The share of nodes in one connected mesh reads 99% from
-  the VM and the workstation and 93% from GitHub's runners, consistently: one responder reachable only from GitHub
-  brings a peer set that overlaps with nobody else's. The provider shares do not move with vantage.
+- **Vantage and hour matter for connectivity, not for concentration.** The share of nodes in one connected mesh reads
+  99% from the VM and the workstation, and on GitHub's runners 93% on thirteen runs and 99% on two: one responder
+  brings a peer set that overlaps with nobody else's, and whether it answers that hour decides the reading. The
+  provider shares do not move with it.
 
 ## What it does and does not say
 
