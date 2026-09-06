@@ -131,4 +131,5 @@ Three chains, one vendored function, one fix that shipped as code only. The stat
 every API reads through the corrected keeper and reports a consistent-looking account, while the tree keeps the
 number the old code wrote. That is the class of thing offline, verified reading is for.
 
-Issue: [InjectiveFoundation/injective-core#45](https://github.com/InjectiveFoundation/injective-core/issues/45).
+Issues: [InjectiveFoundation/injective-core#45](https://github.com/InjectiveFoundation/injective-core/issues/45),
+[osmosis-labs/osmosis#9736](https://github.com/osmosis-labs/osmosis/issues/9736).
