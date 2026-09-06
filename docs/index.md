@@ -8,9 +8,9 @@ hide:
 I build small, focused tools for the painful workflows in the lifecycle of a Cosmos SDK chain — launching, coordination,
 faucet operation, genesis assembly, offline state verification, keeping the public registry honest about what's still
 alive, and seeing where a network's nodes actually run. All of them are Apache 2.0 and self-hostable. None of them
-require running a third-party service or trusting an external infrastructure operator. One of them — `stateward`, the
-offline state reader — surfaced a bank-state indexing gap on the Cosmos Hub
-([cosmos/gaia#4122](https://github.com/cosmos/gaia/issues/4122)).
+require running a third-party service or trusting an external infrastructure operator. Several of them have produced
+findings, filed where they belong — in cosmos/gaia, cosmos/chain-registry, injective-core, and osmosis — with
+reproductions anyone can run ([Findings](https://ny4rl4th0t3p.github.io/blog/)).
 
 ---
 
