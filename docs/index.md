@@ -29,7 +29,9 @@ via docker run for a read-only measurement of any registry clone.
 
 - [GitHub](https://github.com/ny4rl4th0t3p/chain-registry-sentinel)
 - [Probe specification](https://github.com/ny4rl4th0t3p/chain-registry-sentinel/blob/main/PROBES.md)
-- [Measurement & discussion with the registry maintainers — cosmos/chain-registry#7866](https://github.com/cosmos/chain-registry/issues/7866)
+- [~60% of the endpoints in cosmos/chain-registry fail liveness](blog/posts/2026-08-04-chain-registry-endpoint-liveness.md)
+  — the measurement, and the discussion with the registry maintainers in
+  [cosmos/chain-registry#7866](https://github.com/cosmos/chain-registry/issues/7866)
 
 ---
 
@@ -52,6 +54,8 @@ publishes to GitHub Pages; the crawler is a single Go binary, the map a static p
 - [Live map — Cosmos Hub, Injective, Celestia, dYdX](https://ny4rl4th0t3p.github.io/nodemap-ui/)
 - [Crawler — GitHub](https://github.com/ny4rl4th0t3p/nodemap), with the full field policy and its reasoning
 - [Instance — GitHub](https://github.com/ny4rl4th0t3p/nodemap-ui), the running map: chains, workflows, delisting
+- [Half of the Cosmos Hub's peer connections land on three hosting providers](blog/posts/2026-09-05-cosmos-hub-hosting-concentration.md)
+  — the first finding, with the reproduction
 
 ---
 
@@ -69,8 +73,12 @@ The readers are hostile-input parsers — no panics, bounded allocations, contin
 a prebuilt GHCR image.
 
 - [GitHub](https://github.com/ny4rl4th0t3p/stateward)
-- [DenomOwners under-reports holders on cosmoshub-4 — cosmos/gaia#4122](https://github.com/cosmos/gaia/issues/4122)
-- [account_number 0 duplicated on injective-1 — InjectiveFoundation/injective-core#45](https://github.com/InjectiveFoundation/injective-core/issues/45)
+- [DenomOwners under-reports holders on cosmoshub-4](blog/posts/2026-08-18-gaia-denomowners.md) — filed as
+  [cosmos/gaia#4122](https://github.com/cosmos/gaia/issues/4122)
+- [A module account at account_number 0, three chains deep](blog/posts/2026-08-25-injective-account-number-0.md) — filed
+  as [InjectiveFoundation/injective-core#45](https://github.com/InjectiveFoundation/injective-core/issues/45)
+- [TAC: what the exploit left in the tree](blog/posts/2026-09-06-tac-what-the-exploit-left-in-the-tree.md) — an
+  independent, header-sealed reading of the halted and the recovered state
 
 ---
 
