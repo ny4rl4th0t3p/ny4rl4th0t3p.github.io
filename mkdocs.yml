@@ -1,5 +1,5 @@
 site_name: ny4rl4th0t3p
-site_description: Operator tooling for Cosmos SDK chains
+site_description: Backend engineering for blockchain infrastructure
 site_url: https://ny4rl4th0t3p.github.io/
 # No repo_url: it would add a header card that fetches stars/forks from the GitHub
 # API on every page load — pointless for a personal site, and an external request.

@@ -3,18 +3,24 @@ hide:
   - navigation
 ---
 
-# Operator tooling for Cosmos SDK chains
+# Backend engineering for blockchain infrastructure
 
-I build small, focused tools for the painful workflows in the lifecycle of a Cosmos SDK chain — launching, coordination,
-faucet operation, genesis assembly, offline state verification, keeping the public registry honest about what's still
-alive, and seeing where a network's nodes actually run. All of them are Apache 2.0 and self-hostable. None of them
-require running a third-party service or trusting an external infrastructure operator. Several of them have produced
-findings, filed where they belong — in cosmos/gaia, cosmos/chain-registry, injective-core, and osmosis — with
-reproductions anyone can run ([Findings](https://ny4rl4th0t3p.github.io/blog/)).
+I build small, focused tools for blockchain infrastructure: measuring what public registries and node networks declare
+against what is actually live, reading and verifying a chain's committed state offline, and turning the painful
+workflows of launching and operating a network — launch coordination, genesis assembly, faucets — into self-hostable
+software. Most of them target Cosmos SDK and CometBFT chains, where the work started; each entry below states what it
+covers. All of them are Apache 2.0 and self-hostable. None of them require running a third-party service or trusting an
+external infrastructure operator. Several of them have produced findings, filed where they belong — in cosmos/gaia,
+cosmos/chain-registry, injective-core, and osmosis — with reproductions anyone can run
+([Findings](https://ny4rl4th0t3p.github.io/blog/)).
 
 ---
 
-## chain-registry-sentinel — v0.8.3
+## Measurement and verification
+
+### chain-registry-sentinel — v0.8.3
+
+*Scope: `cosmos/chain-registry`*
 
 A GitHub Action that verifies cosmos/chain-registry entries against on-chain reality and proposes corrections as pull
 requests. Probes every declared RPC, REST, gRPC, gRPC-web, EVM JSON-RPC, and WebSocket endpoint; failures are classified
@@ -36,7 +42,9 @@ via docker run for a read-only measurement of any registry clone.
 
 ---
 
-## nodemap — v0.3.2
+### nodemap — v0.3.2
+
+*Scope: CometBFT networks*
 
 A public, aggregate map of the observable nodes in a CometBFT network: where nodes are by country, how
 concentrated hosting is by provider (by node count and by share of the peer connections that land there), which client
@@ -60,7 +68,9 @@ the crawler is a single Go binary, the map a static page with no external librar
 
 ---
 
-## stateward — v0.3.0
+### stateward — v0.3.0
+
+*Scope: Cosmos SDK application state (IAVL; goleveldb, pebbledb)*
 
 Offline, verified reading of a Cosmos SDK chain's on-disk state — no running node, no chain binary, no state replay. It
 opens a node's `application.db` with hand-rolled, spec-pinned IAVL readers (legacy, v1, and hybrid trees; goleveldb and
@@ -84,7 +94,11 @@ a prebuilt GHCR image.
 
 ---
 
-## Seedward
+## Chain launch and operations
+
+### Seedward
+
+*Scope: Cosmos SDK chain launches*
 
 A suite for launching and coordinating Cosmos SDK chains without the usual Discord-and-spreadsheet scramble: validate
 validator gentxs, run a multi-party launch under an M-of-N committee, rehearse the genesis before going live, and keep a
@@ -94,7 +108,7 @@ tamper-evident record of every decision. Self-hostable end to end.
 - [Demo](https://ny4rl4th0t3p.github.io/seedward-suite/demo/) — `make dev-seed` spins up a populated stack: ten launches
   across every lifecycle state, browsable with an imported demo wallet.
 
-### chaincoord — v1.0.0
+#### chaincoord — v1.0.0
 
 The coordination server. An M-of-N committee with VETO drives an explicit launch lifecycle state machine, backed by a
 tamper-evident, offline-verifiable hash-chained audit log. Validators and coordinators sign in with their existing
@@ -105,7 +119,7 @@ most Cosmos chain launches today.
 - [GitHub](https://github.com/ny4rl4th0t3p/seedward-chaincoord)
 - [Documentation](https://ny4rl4th0t3p.github.io/seedward-chaincoord)
 
-### Web UI — v0.3.x (beta)
+#### Web UI — v0.3.x (beta)
 
 A browser front end for chaincoord. Connect a Cosmos wallet to create and govern launches, review committee proposals,
 and submit or validate validator gentxs — with gentx validation running client-side via WebAssembly. Ships as a single
@@ -113,7 +127,7 @@ container image.
 
 - [GitHub](https://github.com/ny4rl4th0t3p/seedward-chaincoord-web)
 
-### Rehearsal — v0.4.x (pre-release)
+#### Rehearsal — v0.4.x (pre-release)
 
 Optional pre-flight rehearsal for a launch. Assembles the candidate genesis from the approved inputs, boots an ephemeral
 chain from it, runs an on-chain assertion suite, and signs the pass/fail result back to chaincoord — so a launch can be
@@ -121,7 +135,7 @@ gated on a genesis that provably boots. Built; not yet released as a stable vers
 
 - [GitHub](https://github.com/ny4rl4th0t3p/seedward-rehearsal)
 
-### gentool — v1.0.0
+#### gentool — v1.0.0
 
 A CLI for generating production-ready genesis files for any Cosmos SDK chain. Takes a baseline genesis, validator
 gentxs, and CSV inputs for accounts, claims, grants, authz, and feegrant; produces a validated genesis.json with the
@@ -129,7 +143,7 @@ supply math checked explicitly. Makes genesis assembly deterministic and reprodu
 
 - [GitHub](https://github.com/ny4rl4th0t3p/seedward-gentool)
 
-### gentxvalidate — v1.0.0
+#### gentxvalidate — v1.0.0
 
 A Go library — with a WebAssembly build — that parses and validates Cosmos SDK gentxs: every invariant (chain id, bond
 denom, self-delegation floor, commission bounds, consensus pubkey) plus the ADR-036 signature. Runs server-side in
@@ -138,16 +152,11 @@ chaincoord and in the browser via WASM. Ships alongside `canonicaljson`, a deter
 
 - [GitHub](https://github.com/ny4rl4th0t3p/seedward-libs)
 
-### seedward CLI — experimental
-
-A unified command-line entry point for the suite: genesis assembly and gentx validation today, with launch and rehearsal
-commands in progress. Early and subject to change.
-
-- [GitHub](https://github.com/ny4rl4th0t3p/seedward-cli)
-
 ---
 
-## pour — v0.9.x, pre-1.0
+### pour — v0.9.x, pre-1.0
+
+*Scope: Cosmos SDK chains, metadata from `cosmos/chain-registry`*
 
 A pure-Go, multi-chain Cosmos faucet. Single static binary, no Node, no cosmos-sdk dependency. Builds and broadcasts
 transactions via raw protobuf over gRPC or REST, sources chain metadata from `cosmos/chain-registry`, handles IBC drips,
@@ -162,9 +171,10 @@ limits keyed on raw address bytes.
 
 ## About
 
-These tools come from operating in the Cosmos ecosystem and noticing the same operational pain points being solved with
-Discord channels, spreadsheets, and quick-and-dirty scripts at every chain launch and testnet. The point is to turn
-those workflows into self-hostable software.
+These tools come from operating blockchain networks — so far mostly in the Cosmos ecosystem — and noticing the same
+operational pain points being solved with Discord channels, spreadsheets, and quick-and-dirty scripts at every chain
+launch and testnet, and the same public data going unverified. The point is to turn those workflows into self-hostable
+software, and to check what a network claims against what it does.
 
 For questions, bug reports, or anything else — including collaboration or work inquiries — open an issue or discussion
 on the relevant repo.
