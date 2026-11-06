@@ -1,0 +1,34 @@
+---
+// Self-hosted fonts: bundled into the build, so the page makes no request to a font service.
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource-variable/source-serif-4';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    <title>{title}</title>
+    <!-- Applies a saved theme before the page draws, so it never flashes the other one. -->
+    <script is:inline>
+      try {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

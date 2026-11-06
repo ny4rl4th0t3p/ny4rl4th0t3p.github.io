@@ -1,0 +1,53 @@
+---
+// Switches between light and dark. Until it's used, the page follows the system setting. Without JavaScript the button
+// stays hidden, since it couldn't do anything.
+---
+
+<button class="theme-toggle" type="button" hidden>
+  <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+    <circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+    <path
+      d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"></path>
+  </svg>
+  <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+    <path
+      d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linejoin="round"></path>
+  </svg>
+</button>
+
+<script>
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  const current = () => root.dataset.theme ?? (systemDark.matches ? 'dark' : 'light');
+  const label = () => {
+    const next = current() === 'dark' ? 'light' : 'dark';
+    button?.setAttribute('aria-label', `Switch to ${next} mode`);
+    button?.setAttribute('title', `Switch to ${next} mode`);
+  };
+
+  if (button) {
+    button.hidden = false;
+    label();
+    button.addEventListener('click', () => {
+      const next = current() === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try {
+        localStorage.setItem('theme', next);
+      } catch {
+        // Storage can be blocked; the choice then lasts until the page is left.
+      }
+      label();
+    });
+    systemDark.addEventListener('change', label);
+  }
+</script>

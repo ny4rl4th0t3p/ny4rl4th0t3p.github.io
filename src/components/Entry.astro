@@ -1,0 +1,78 @@
+---
+import type { Project } from '../data/projects';
+import { linkAttrs } from '../lib/links';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="entry">
+  <h3 class="name"><a href={project.href} {...linkAttrs(project.href)}>{project.name}</a></h3>
+  <p class="meta">
+    {project.version && <span class="version">{project.version}</span>}
+    <span class="scope">{project.scope}</span>
+  </p>
+  <p class="summary">{project.summary}</p>
+
+  {
+    project.links && (
+      <ul class="links">
+        {project.links.map((link) => (
+          <li>
+            <a href={link.href} {...linkAttrs(link.href)}>
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    project.parts && (
+      <ul class="parts">
+        {project.parts.map((part) => (
+          <li>
+            <p class="part-head">
+              <a href={part.href} {...linkAttrs(part.href)}>
+                {part.name}
+              </a>
+              <span class="version">{part.version}</span>
+            </p>
+            <p class="part-summary">{part.summary}</p>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    project.findings && (
+      <ul class="findings" aria-label={`Findings from ${project.name}`}>
+        {project.findings.map((finding) => (
+          <li>
+            <a href={finding.post} {...linkAttrs(finding.post)}>
+              {finding.title}
+            </a>
+            {finding.filed && (
+              <span class="note">
+                , filed as{' '}
+                {finding.filed.map((issue, i) => (
+                  <>
+                    {i > 0 && ' and '}
+                    <a href={issue.href} {...linkAttrs(issue.href)}>
+                      {issue.label}
+                    </a>
+                  </>
+                ))}
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</article>
