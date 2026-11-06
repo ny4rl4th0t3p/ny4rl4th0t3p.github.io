@@ -1,10 +1,11 @@
-// Links to another host open in a new tab, so a reader doesn't lose this site on the first click. Links on this host
-// (the landing, the blog, project docs published under it) keep the tab. Decided at build time, against the site's
-// own address in astro.config.mjs, so the page needs no script for it.
+// A full http(s) URL opens in a new tab, so a reader doesn't lose this site on the first click; that includes other
+// projects published on this host. A root-relative link (/blog/) is a page of this site and keeps the tab. Decided at
+// build time, so the page needs no script for it.
 
-const siteHost = new URL(import.meta.env.SITE).host;
+export function opensNewTab(href: string): boolean {
+  return /^https?:\/\//i.test(href);
+}
 
 export function linkAttrs(href: string): { target?: string; rel?: string } {
-  const url = new URL(href, import.meta.env.SITE);
-  return url.host === siteHost ? {} : { target: '_blank', rel: 'noopener' };
+  return opensNewTab(href) ? { target: '_blank', rel: 'noopener' } : {};
 }

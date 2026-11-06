@@ -39,7 +39,7 @@ export interface Area {
   projects: Project[];
 }
 
-export const findingsUrl = 'https://ny4rl4th0t3p.github.io/blog/';
+export const findingsUrl = '/blog/';
 
 const post = (slug: string) => `${findingsUrl}${slug}/`;
 const issue = (repo: string, number: number): Link => ({
