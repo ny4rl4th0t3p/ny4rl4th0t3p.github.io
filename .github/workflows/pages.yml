@@ -1,8 +1,9 @@
 name: pages
 
+# Every push and pull request builds the site and checks its links; only main deploys.
 on:
   push:
-    branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -10,26 +11,36 @@ permissions:
   pages: write
   id-token: write
 
+# One run per branch at a time, so a branch build never cancels a deploy from main.
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          python-version: "3.12"
-          cache: pip
-      - run: pip install -r requirements.txt
-      - run: mkdocs build --strict
-      - uses: actions/upload-pages-artifact@v3
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      # Links within the site, section links included, checked offline: full https:// URLs are never fetched, so
+      # another site being down can't fail the build. A folder link resolves to its index.html, as on GitHub Pages.
+      - uses: lycheeverse/lychee-action@v2.9.0
         with:
-          path: site
+          args: >-
+            --offline --include-fragments --index-files index.html --root-dir "$(pwd)/dist" --no-progress
+            'dist/**/*.html'
+          fail: true
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     environment:
@@ -37,4 +48,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
