@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { allPosts, excerpt, formatDate, postUrl } from '../../lib/posts';
+
+const summary =
+  'One entry per finding that has been filed upstream or published with full reproduction. Each states the claim, the evidence, a reproduction anyone can run against public infrastructure, and the cause as the code says it.';
+
+const posts = await Promise.all(
+  (await allPosts()).map(async (post) => ({ post, excerpt: await excerpt(post) })),
+);
+---
+
+<Base title="Findings · ny4rl4th0t3p" description={summary}>
+  <Header />
+
+  <main>
+    <section class="area" aria-labelledby="findings-title">
+      <div class="area-head">
+        <h1 id="findings-title">Findings</h1>
+        <p>{summary}</p>
+      </div>
+      <ol class="area-body post-list">
+        {
+          posts.map(({ post, excerpt }) => (
+            <li class="entry">
+              <h2 class="name">
+                <a href={postUrl(post)}>{post.data.title}</a>
+              </h2>
+              <p class="meta">
+                <time datetime={post.data.date.toISOString().slice(0, 10)}>{formatDate(post.data.date)}</time>
+                {post.data.tags.map((tag) => (
+                  <span class="scope">{tag}</span>
+                ))}
+              </p>
+              <div class="prose excerpt" set:html={excerpt} />
+              <p class="links">
+                <a href={postUrl(post)}>Read the finding</a>
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
