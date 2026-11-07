@@ -99,7 +99,7 @@ export const areas: Area[] = [
         ],
         findings: [
           {
-            title: "Half of the Cosmos Hub's peer connections land on three hosting providers",
+            title: 'Half of the Cosmos Hub’s peer connections land on three hosting providers',
             post: post('half-of-the-cosmos-hubs-peer-connections-land-on-three-hosting-providers'),
           },
         ],
@@ -110,7 +110,7 @@ export const areas: Area[] = [
         version: 'v0.3.0',
         scope: 'Cosmos SDK application state',
         summary:
-          "Reads a Cosmos SDK chain's on-disk state offline and proves it is the state the network committed, with no node, chain binary or replay.",
+          'Reads a Cosmos SDK chain’s on-disk state offline and proves it is the state the network committed, with no node, chain binary or replay.',
         findings: [
           {
             title: 'DenomOwners under-reports holders on cosmoshub-4',

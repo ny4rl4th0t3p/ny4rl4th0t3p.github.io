@@ -1,26 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
 import Entry from '../components/Entry.astro';
-import { areas, findingsUrl } from '../data/projects';
-import { linkAttrs } from '../lib/links';
-import ThemeToggle from '../components/ThemeToggle.astro';
-
-const github = 'https://github.com/ny4rl4th0t3p';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { areas } from '../data/projects';
 ---
 
 <Base
   title="ny4rl4th0t3p"
   description="Self-hostable backend software, and findings anyone can reproduce."
 >
-  <header class="top">
-    <a class="handle" href="/">ny4rl4th0t3p</a>
-    <nav aria-label="Site">
-      <a href="#work">Work</a>
-      <a href={findingsUrl}>Findings</a>
-      <a href={github} {...linkAttrs(github)}>GitHub</a>
-      <ThemeToggle />
-    </nav>
-  </header>
+  <Header />
 
   <main>
     <section class="hero">
@@ -51,9 +41,5 @@ const github = 'https://github.com/ny4rl4th0t3p';
     </div>
   </main>
 
-  <footer class="bottom">
-    <p>
-      For questions, bug reports, collaboration or work, open an issue or a discussion on the project's repository.
-    </p>
-  </footer>
+  <Footer />
 </Base>

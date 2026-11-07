@@ -1,5 +1,5 @@
 ---
-title: "Half of the Cosmos Hub's peer connections land on three hosting providers"
+title: 'Half of the Cosmos Hub’s peer connections land on three hosting providers'
 slug: half-of-the-cosmos-hubs-peer-connections-land-on-three-hosting-providers
 date: 2026-09-05
 tags:
@@ -12,7 +12,7 @@ Of the roughly 500 `cosmoshub-4` nodes a public-RPC crawl can observe, about 30%
 hold 47% of the nodes and half of the connections. Measured fifteen times over thirty hours from GitHub's network,
 2026-09-04 to 2026-09-05, and before that eight times from two other vantage points; the numbers move by a point or
 two between runs and the ranking does not move at all. Live on the
-[map](https://ny4rl4th0t3p.github.io/nodemap-ui/), hosting concentration card.
+[map](https://ny4rl4th0t3p.github.io/nodemap-ui/#cosmoshub-4), hosting concentration card.
 
 <!-- more -->
 
@@ -97,6 +97,6 @@ invisible to this crawl by design, and a validator with an open RPC is counted b
 keeps producing blocks when a provider goes dark depends on where stake sits, which this map does not know and will
 not learn. What it can show, from now on, is whether the number moves.
 
-Live: [nodemap · cosmoshub-4](https://ny4rl4th0t3p.github.io/nodemap-ui/). Crawler:
+Live: [nodemap · cosmoshub-4](https://ny4rl4th0t3p.github.io/nodemap-ui/#cosmoshub-4). Crawler:
 [ny4rl4th0t3p/nodemap](https://github.com/ny4rl4th0t3p/nodemap). Instance:
 [ny4rl4th0t3p/nodemap-ui](https://github.com/ny4rl4th0t3p/nodemap-ui).

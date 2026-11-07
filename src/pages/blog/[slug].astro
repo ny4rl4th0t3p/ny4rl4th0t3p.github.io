@@ -1,0 +1,85 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { allPosts, formatDate, type Post } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  return (await allPosts()).map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const sections = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+---
+
+<Base title={`${post.data.title} · ny4rl4th0t3p`} description={post.data.title}>
+  <Header />
+
+  <main>
+    <article aria-labelledby="post-title">
+      <header class="post-header">
+        <h1 class="post-title" id="post-title">{post.data.title}</h1>
+        <p class="meta">
+          <time datetime={post.data.date.toISOString().slice(0, 10)}>{formatDate(post.data.date)}</time>
+          {post.data.tags.map((tag) => <span class="scope">{tag}</span>)}
+        </p>
+      </header>
+      <div class="area post">
+        <nav class="area-head" aria-label="Contents">
+          {
+            sections.length > 0 && (
+              <details class="toc">
+                <summary>Contents</summary>
+                <ol>
+                  {sections.map((heading) => (
+                    <li class={`toc-${heading.depth}`}>
+                      <a href={`#${heading.slug}`}>{heading.text}</a>
+                    </li>
+                  ))}
+                </ol>
+              </details>
+            )
+          }
+        </nav>
+        <div class="area-body prose">
+          <Content />
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</Base>
+
+<script>
+  // A copy button on each code block. Clipboard access needs HTTPS (or localhost), so without it there is no button.
+  if (navigator.clipboard) {
+    for (const pre of document.querySelectorAll<HTMLPreElement>('.prose pre')) {
+      const box = document.createElement('div');
+      box.className = 'code-box';
+      pre.before(box);
+      box.append(pre);
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'copy';
+      button.textContent = 'Copy';
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(pre.textContent ?? '');
+          button.textContent = 'Copied';
+        } catch {
+          button.textContent = 'Copy failed';
+        }
+        setTimeout(() => (button.textContent = 'Copy'), 2000);
+      });
+      box.append(button);
+    }
+  }
+</script>
