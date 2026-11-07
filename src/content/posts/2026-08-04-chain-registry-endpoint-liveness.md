@@ -1,5 +1,6 @@
 ---
 title: '~60% of the endpoints in cosmos/chain-registry fail liveness'
+description: 'A probe of the 3,855 endpoints in cosmos/chain-registry finds 60% failing liveness, and three different problems behind that one number.'
 slug: 60-of-the-endpoints-in-cosmoschain-registry-fail-liveness
 date: 2026-08-04
 tags:

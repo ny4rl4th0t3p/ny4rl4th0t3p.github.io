@@ -1,5 +1,6 @@
 ---
 title: 'Half of the Cosmos Hub’s peer connections land on three hosting providers'
+description: 'About 30% of the observable cosmoshub-4 nodes sit in Hetzner’s network, and the top three providers hold half of the peer connections.'
 slug: half-of-the-cosmos-hubs-peer-connections-land-on-three-hosting-providers
 date: 2026-09-05
 tags:

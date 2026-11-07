@@ -1,5 +1,6 @@
 ---
 title: 'A module account at account_number 0, three chains deep'
+description: 'On injective-1 the tokenfactory module account holds account_number 0, the same number as a user account; Osmosis and Juno carry the same fossil.'
 slug: a-module-account-at-account_number-0-three-chains-deep
 date: 2026-08-25
 tags:

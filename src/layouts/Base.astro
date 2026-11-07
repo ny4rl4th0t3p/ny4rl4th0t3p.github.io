@@ -20,6 +20,7 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
     <meta name="color-scheme" content="light dark" />
     <title>{title}</title>
+    <link rel="alternate" type="application/rss+xml" title="Findings" href="/blog/rss.xml" />
     <!-- Applies a saved theme before the page draws, so it never flashes the other one. -->
     <script is:inline>
       try {

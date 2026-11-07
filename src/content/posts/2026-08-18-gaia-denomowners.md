@@ -1,5 +1,6 @@
 ---
 title: 'DenomOwners under-reports holders on cosmoshub-4'
+description: 'On the Cosmos Hub, DenomOwners silently returns incomplete holder lists for 1,248 denoms, because its index misses about 1.96M balances never migrated.'
 slug: denomowners-under-reports-holders-on-cosmoshub-4
 date: 2026-08-18
 tags:
