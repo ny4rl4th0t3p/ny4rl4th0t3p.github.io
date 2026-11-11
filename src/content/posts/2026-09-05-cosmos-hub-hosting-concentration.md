@@ -47,15 +47,15 @@ Twenty-three runs, 2026-09-02 to 2026-09-05: eight from a small VM and a worksta
 Actions runners between 2026-09-04 09:27 UTC and 2026-09-05 15:24 UTC, every snapshot kept on the instance's `data`
 branch.
 
-| Measure                                   | Range across runs        | Runner runs alone        |
-|-------------------------------------------|--------------------------|--------------------------|
-| Observed nodes                            | 471 – 545                | 496 – 545                |
-| Nodes answering RPC                       | 33 – 36                  | 34 – 36                  |
-| Hetzner, share of nodes                   | 27% – 31%                | 28% – 31%                |
-| Hetzner, share of reported connections    | 39% – 41%                | 39% – 41%                |
-| Top 3 providers, share of nodes           | 45% – 48%                | 47% – 48%                |
-| Top 3 providers, share of connections     | 49% – 52%                | 49% – 52%                |
-| Next provider after the top three         | Allnodes, 2% – 3%        | Allnodes, 2% – 3%        |
+| Measure                                | Range across runs | Runner runs alone |
+|----------------------------------------|-------------------|-------------------|
+| Observed nodes                         | 471 – 545         | 496 – 545         |
+| Nodes answering RPC                    | 33 – 36           | 34 – 36           |
+| Hetzner, share of nodes                | 27% – 31%         | 28% – 31%         |
+| Hetzner, share of reported connections | 39% – 41%         | 39% – 41%         |
+| Top 3 providers, share of nodes        | 45% – 48%         | 47% – 48%         |
+| Top 3 providers, share of connections  | 49% – 52%         | 49% – 52%         |
+| Next provider after the top three      | Allnodes, 2% – 3% | Allnodes, 2% – 3% |
 
 The connection share is the number that matters for the "what if" question: a provider hosting a quarter of the nodes
 but carrying two fifths of the mesh's connections is where the well-connected nodes are, not merely where many nodes

@@ -35,9 +35,11 @@ curl -s "$LCD/cosmos/auth/v1beta1/address_by_id/0?account_id=0" | jq -c
 
 Two accounts at number 0; the by-number index serves the user one, so the module account has no id-based lookup.
 (`account_id` is the supported query field — the `{id}` path segment is the
-[deprecated `int64 id`](https://github.com/cosmos/cosmos-sdk/blob/release/v0.50.x/proto/cosmos/auth/v1beta1/query.proto#L199-L211)
+[deprecated
+`int64 id`](https://github.com/cosmos/cosmos-sdk/blob/release/v0.50.x/proto/cosmos/auth/v1beta1/query.proto#L199-L211)
 and must be 0; the handler resolves `account_id` through the by-number unique index —
-[`grpc_query.go` L31–L37](https://github.com/cosmos/cosmos-sdk/blob/release/v0.50.x/x/auth/keeper/grpc_query.go#L31-L37).)
+[
+`grpc_query.go` L31–L37](https://github.com/cosmos/cosmos-sdk/blob/release/v0.50.x/x/auth/keeper/grpc_query.go#L31-L37).)
 
 ## The full-store numbers
 
