@@ -4,6 +4,11 @@ import Entry from '../components/Entry.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { areas } from '../data/projects';
+import { postsOf } from '../lib/posts';
+
+// Newest first, so the first one with a project's tag is its latest entry.
+const journal = await postsOf('journal');
+const latestFor = (tag?: string) => (tag ? journal.find((post) => post.data.tags.includes(tag)) : undefined);
 ---
 
 <Base
@@ -32,7 +37,7 @@ import { areas } from '../data/projects';
             </div>
             <div class="area-body">
               {area.projects.map((project) => (
-                <Entry project={project} />
+                <Entry project={project} latest={latestFor(project.journal)} />
               ))}
             </div>
           </section>

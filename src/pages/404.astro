@@ -3,7 +3,7 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { findingsUrl } from '../data/projects';
+import { findingsUrl, journalUrl } from '../data/projects';
 ---
 
 <Base title="Page not found · ny4rl4th0t3p" description="There is no page at this address.">
@@ -14,7 +14,8 @@ import { findingsUrl } from '../data/projects';
       <h1>No page at this address.</h1>
       <p class="lede">
         Every finding is listed on the <a href={findingsUrl}>Findings</a> page, including those the old category and
-        archive pages used to list. Everything else starts at the <a href="/">home page</a>.
+        archive pages used to list, and every journal entry on the <a href={journalUrl}>Journal</a> page. Everything
+        else starts at the <a href="/">home page</a>.
       </p>
     </section>
   </main>

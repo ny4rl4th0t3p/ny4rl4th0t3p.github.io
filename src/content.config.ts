@@ -12,6 +12,9 @@ const posts = defineCollection({
         // The URL is /blog/<slug>/. Filed issues link to these, so a slug never changes once published.
         slug: z.string().regex(/^[a-z0-9_-]+$/),
         date: z.coerce.date(),
+        // A finding (filed upstream, or published with a full reproduction) is at /blog/<slug>/; a journal entry,
+        // on how a project evolves, at /journal/<slug>/.
+        kind: z.enum(['finding', 'journal']),
         tags: z.array(z.string()).min(1),
     }),
 });

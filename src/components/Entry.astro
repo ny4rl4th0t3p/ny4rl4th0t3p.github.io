@@ -1,12 +1,14 @@
 ---
 import type { Project } from '../data/projects';
 import { linkAttrs } from '../lib/links';
+import { postUrl, type Post } from '../lib/posts';
 
 interface Props {
   project: Project;
+  latest?: Post; // the newest journal entry with the project's journal tag
 }
 
-const { project } = Astro.props;
+const { project, latest } = Astro.props;
 ---
 
 <article class="entry">
@@ -72,6 +74,16 @@ const { project } = Astro.props;
             )}
           </li>
         ))}
+      </ul>
+    )
+  }
+
+  {
+    latest && (
+      <ul class="findings" aria-label={`Latest journal entry on ${project.name}`}>
+        <li>
+          Latest in the journal: <a href={postUrl(latest)}>{latest.data.title}</a>
+        </li>
       </ul>
     )
   }

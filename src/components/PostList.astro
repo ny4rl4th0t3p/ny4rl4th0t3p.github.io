@@ -1,0 +1,55 @@
+---
+// The list of one kind of post, newest first: /blog/ for findings, /journal/ for the journal.
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { excerpt, formatDate, kinds, postUrl, postsOf, type Kind } from '../lib/posts';
+
+interface Props {
+  kind: Kind;
+}
+
+const { kind } = Astro.props;
+const { title, summary, read } = kinds[kind];
+const id = `${title.toLowerCase()}-title`;
+
+const posts = await Promise.all(
+  (await postsOf(kind)).map(async (post) => ({ post, excerpt: await excerpt(post) })),
+);
+---
+
+<Base title={`${title} · ny4rl4th0t3p`} description={summary}>
+  <Header />
+
+  <main>
+    <section class="area" aria-labelledby={id}>
+      <div class="area-head">
+        <h1 id={id}>{title}</h1>
+        <p>{summary}</p>
+      </div>
+      <ol class="area-body post-list">
+        {
+          posts.map(({ post, excerpt }) => (
+            <li class="entry">
+              <h2 class="name">
+                <a href={postUrl(post)}>{post.data.title}</a>
+              </h2>
+              <p class="meta">
+                <time datetime={post.data.date.toISOString().slice(0, 10)}>{formatDate(post.data.date)}</time>
+                {post.data.tags.map((tag) => (
+                  <span class="scope">{tag}</span>
+                ))}
+              </p>
+              <div class="prose excerpt" set:html={excerpt} />
+              <p class="links">
+                <a href={postUrl(post)}>{read}</a>
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
