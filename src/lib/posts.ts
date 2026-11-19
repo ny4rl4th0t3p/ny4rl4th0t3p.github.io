@@ -39,6 +39,7 @@ export function formatDate(date: Date): string {
 }
 
 const marker = '<!-- more -->';
+// @ts-ignore
 const excerptProcessor = await createSatteriMarkdownProcessor({ hastPlugins: excerptPlugins });
 
 // The text before <!-- more -->, as HTML. Every post needs the marker, as it did under MkDocs.
