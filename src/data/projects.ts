@@ -64,6 +64,7 @@ export const areas: Area[] = [
           'A self-hosted game backend in Go, built from authoritative rooms and composable modules. Matches survive a restart, a crash and a deploy, and a small server is enough: on one CPU core and 1 GB of memory, 1,000 players over TLS had 99% of their moves answered within 2 ms.',
         links: [
           { label: 'Documentation', href: 'https://ny4rl4th0t3p.github.io/playhold/' },
+          { label: 'Tutorial', href: 'https://ny4rl4th0t3p.github.io/playhold/tutorial/a-module.html' },
           { label: 'Journal', href: journalUrl },
         ],
         journal: 'playhold',
