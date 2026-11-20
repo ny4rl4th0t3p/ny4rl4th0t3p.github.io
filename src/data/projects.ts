@@ -58,7 +58,7 @@ export const areas: Area[] = [
       {
         name: 'playhold',
         href: 'https://github.com/ny4rl4th0t3p/playhold',
-        version: 'v0.4.1, early development',
+        version: 'v0.4.2, early development',
         scope: 'Turn-based web games first',
         summary:
           'A self-hosted game backend in Go, built from authoritative rooms and composable modules. Matches survive a restart, a crash and a deploy, and a small server is enough: on one CPU core and 1 GB of memory, 1,000 players over TLS had 99% of their moves answered within 2 ms.',
