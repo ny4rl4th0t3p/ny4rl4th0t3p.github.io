@@ -51,27 +51,6 @@ const issue = (repo: string, number: number): Link => ({
 
 export const areas: Area[] = [
   {
-    id: 'game-backends',
-    title: 'Game backends',
-    summary: 'Servers for multiplayer games that a small team can run on one cheap machine.',
-    projects: [
-      {
-        name: 'playhold',
-        href: 'https://github.com/ny4rl4th0t3p/playhold',
-        version: 'v0.5.0, early development',
-        scope: 'Turn-based web games first',
-        summary:
-          'A self-hosted game backend in Go, built from authoritative rooms and composable modules. Matches survive a restart, a crash and a deploy, and a small server is enough: on one CPU core and 1 GB of memory, 1,000 players over TLS had 99% of their moves answered within 2 ms.',
-        links: [
-          { label: 'Documentation', href: 'https://ny4rl4th0t3p.github.io/playhold/' },
-          { label: 'Tutorial', href: 'https://ny4rl4th0t3p.github.io/playhold/tutorial/a-module.html' },
-          { label: 'Journal', href: journalUrl },
-        ],
-        journal: 'playhold',
-      },
-    ],
-  },
-  {
     id: 'measurement',
     title: 'Measurement and verification',
     summary: 'Checking what public registries and node networks declare against what is actually live.',
@@ -135,6 +114,27 @@ export const areas: Area[] = [
             post: post('tac-what-the-exploit-left-in-the-tree'),
           },
         ],
+      },
+    ],
+  },
+  {
+    id: 'game-backends',
+    title: 'Game backends',
+    summary: 'Servers for multiplayer games that a small team can run on one cheap machine.',
+    projects: [
+      {
+        name: 'playhold',
+        href: 'https://github.com/ny4rl4th0t3p/playhold',
+        version: 'v0.5.0, early development',
+        scope: 'Turn-based web games first',
+        summary:
+            'A self-hosted game backend in Go, built from authoritative rooms and composable modules. Matches survive a restart, a crash and a deploy, and a small server is enough: on one CPU core and 1 GB of memory, 1,000 players over TLS had 99% of their moves answered within 2 ms.',
+        links: [
+          { label: 'Documentation', href: 'https://ny4rl4th0t3p.github.io/playhold/' },
+          { label: 'Tutorial', href: 'https://ny4rl4th0t3p.github.io/playhold/tutorial/a-module.html' },
+          { label: 'Journal', href: journalUrl },
+        ],
+        journal: 'playhold',
       },
     ],
   },
